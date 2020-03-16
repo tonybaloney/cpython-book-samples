@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "windows": {
+                "program": "${workspaceRoot}/python.exe",
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "program": "${workspaceRoot}/python.exe",
+                "MIMode": "lldb"
+            },
+            "linux": {
+                "program": "${workspaceRoot}/python",
+                "MIMode": "gdb"
+            },
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false
+        }
+    ]
+}
