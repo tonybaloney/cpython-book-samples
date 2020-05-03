@@ -1,8 +1,10 @@
 import asyncio
 
-async def sleepy_alarm(name, time):
+
+async def sleepy_alarm(person, time):
    await asyncio.sleep(time)
-   print(f"{name} -- wake up!")
+   print(f"{person} -- wake up!")
+
 
 async def wake_up_gang():
     tasks = [

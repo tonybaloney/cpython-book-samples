@@ -1,10 +1,12 @@
 import multiprocessing as mp
 
+
 def to_celcius(child_pipe: mp.Pipe, parent_pipe: mp.Pipe):
     f = parent_pipe.recv()
     # time-consuming task ...
     c = (f - 32) * (5/9)
     child_pipe.send(c)
+
 
 if __name__ == '__main__':
     mp.set_start_method('spawn')

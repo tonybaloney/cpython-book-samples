@@ -4,6 +4,7 @@ import socket
 
 timeout = 1
 
+
 def check_port(host: str, port: int, results: mp.Queue):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(timeout)
@@ -11,6 +12,7 @@ def check_port(host: str, port: int, results: mp.Queue):
     if result == 0:
         results.put(port)
     sock.close()
+
 
 if __name__ == '__main__':
     start = time.time()

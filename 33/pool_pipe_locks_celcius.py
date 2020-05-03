@@ -16,6 +16,7 @@ def to_celcius(child_pipe: mp.Pipe, parent_pipe: mp.Pipe,
     finally:
         child_write_lock.release()
 
+
 if __name__ == '__main__':
     mp.set_start_method('spawn')
     pool_manager = mp.Manager()

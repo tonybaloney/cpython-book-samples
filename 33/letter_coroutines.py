@@ -5,7 +5,7 @@ def gen_letters(start, x):
         yield chr(i)
         i += 1
 
-def letters(upper=False):
+def letters(upper):
     if upper:
         yield from gen_letters(65, 26)  # A-Z
     else:

@@ -1,7 +1,9 @@
 from queue import Queue
 import socket
 import time
+
 timeout = 1.0
+
 
 def check_port(host: str, port: int, results: Queue):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -10,6 +12,7 @@ def check_port(host: str, port: int, results: Queue):
     if result == 0:
         results.put(port)
     sock.close()
+
 
 if __name__ == '__main__':
     start = time.time()

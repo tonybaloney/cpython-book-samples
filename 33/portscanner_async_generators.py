@@ -3,6 +3,7 @@ import asyncio
 
 timeout = 1.0
 
+
 async def check_ports(host: str, start: int, end: int, max=10):
     found = 0
     for port in range(start, end):
@@ -17,11 +18,13 @@ async def check_ports(host: str, start: int, end: int, max=10):
         except asyncio.TimeoutError:
             pass # closed
 
+
 async def scan(start, end, host):
     results = []
     async for port in check_ports(host, start, end, max=1):
         results.append(port)
     return results
+
 
 if __name__ == '__main__':
     start = time.time()

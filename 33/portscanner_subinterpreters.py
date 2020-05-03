@@ -2,10 +2,10 @@ import time
 import _xxsubinterpreters as subinterpreters
 from threading import Thread
 import textwrap as tw
-import pickle
 from queue import Queue
 
 timeout = 1  # in seconds..
+
 
 def run(host: str, port: int, results: Queue):
     # Create a communication channel
@@ -32,6 +32,7 @@ def run(host: str, port: int, results: Queue):
     subinterpreters.channel_release(channel_id)
     if output == 0:
         results.put(port)
+
 
 if __name__ == '__main__':
     start = time.time()

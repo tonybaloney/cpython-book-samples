@@ -1,10 +1,12 @@
 import multiprocessing as mp
 
+
 def to_celcius(input: mp.Queue, output: mp.Queue):
     f = input.get()
     # time-consuming task ...
     c = (f - 32) * (5/9)
     output.put(c)
+
 
 if __name__ == '__main__':
     mp.set_start_method('spawn')
