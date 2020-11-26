@@ -1,7 +1,7 @@
 import multiprocessing as mp
 
 
-def to_celcius(child_pipe: mp.Pipe, parent_pipe: mp.Pipe):
+def to_celsius(child_pipe: mp.Pipe, parent_pipe: mp.Pipe):
     f = parent_pipe.recv()
     # time-consuming task ...
     c = (f - 32) * (5/9)
@@ -16,7 +16,7 @@ if __name__ == '__main__':
         results = []
         for i in range(110, 150, 10):
             parent_pipe.send(i)
-            pool.apply_async(to_celcius, args=(child_pipe, parent_pipe))
+            pool.apply_async(to_celsius, args=(child_pipe, parent_pipe))
             print(child_pipe.recv())
         parent_pipe.close()
         child_pipe.close()
