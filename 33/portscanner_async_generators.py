@@ -15,6 +15,8 @@ async def check_ports(host: str, start: int, end: int, max=10):
             w.close()
             if found >= max:
                 return
+        except ConnectionRefusedError:
+            pass
         except asyncio.TimeoutError:
             pass # closed
 
