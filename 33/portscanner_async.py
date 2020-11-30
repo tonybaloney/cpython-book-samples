@@ -10,6 +10,8 @@ async def check_port(host: str, port: int, results: list):
         r, w = await asyncio.wait_for(future, timeout=timeout)
         results.append(port)
         w.close()
+    except OSError:  # do not throw an exception when port is not open
+        pass
     except asyncio.TimeoutError:
         pass # closed
 
