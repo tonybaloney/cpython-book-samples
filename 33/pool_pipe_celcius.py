@@ -16,7 +16,7 @@ if __name__ == '__main__':
         results = []
         for i in range(110, 150, 10):
             parent_pipe.send(i)
-            pool.apply_async(to_celcius, args=(child_pipe, parent_pipe))
+            pool.apply(to_celcius, args=(child_pipe, parent_pipe))
             print(child_pipe.recv())
         parent_pipe.close()
         child_pipe.close()
