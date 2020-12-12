@@ -1,21 +1,20 @@
 import multiprocessing as mp
 
 
-def to_celcius(child_pipe: mp.Pipe, parent_pipe: mp.Pipe,
-               child_write_lock: mp.Lock, parent_read_lock: mp.Lock):
-    parent_read_lock.acquire(blocking=False)
+def to_celcius(child_pipe: mp.Pipe, child_lock: mp.Lock):
+    child_lock.acquire(blocking=False)
     try:
-        f = parent_pipe.recv()
+        f = child_pipe.recv()
     finally:
-        parent_read_lock.release()
-    # time-consuming task ...
+        child_lock.release()
+    # time-consuming task ... release lock before processing
     c = (f - 32) * (5/9)
-
-    child_write_lock.acquire(blocking=False)
+    # reacquire lock when done
+    child_lock.acquire(blocking=False)
     try:
         child_pipe.send(c)
     finally:
-        child_write_lock.release()
+        child_lock.release()
 
 
 if __name__ == '__main__':
@@ -23,14 +22,11 @@ if __name__ == '__main__':
     pool_manager = mp.Manager()
     with mp.Pool(2) as pool:
         parent_pipe, child_pipe = mp.Pipe()
-        parent_read_lock = pool_manager.Lock()
-        child_write_lock = pool_manager.Lock()
+        child_lock = pool_manager.Lock()
         results = []
         for i in range(110, 150, 10):
             parent_pipe.send(i)
-            results.append(pool.apply_async(to_celcius, args=(child_pipe, parent_pipe,
-                                         child_write_lock,
-                                         parent_read_lock)))
-            print(child_pipe.recv())
+            results.append(pool.apply_async(to_celcius, args=(child_pipe, child_lock)))
+            print(parent_pipe.recv())
         parent_pipe.close()
         child_pipe.close()
