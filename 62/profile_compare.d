@@ -2,7 +2,7 @@
 self int indent;
 
 python$target:::function-entry
-/basename(copyinstr(arg0)) == "portscanner_multithreaded.py"
+/basename(copyinstr(arg0)) == "portscanner_threads.py"
  && copyinstr(arg1) == "main"/
 {
     self->trace = 1;
@@ -32,7 +32,7 @@ python$target:::function-return
 }
 
 python$target:::function-return
-/basename(copyinstr(arg0)) == "portscanner_multithreaded.py"
+/basename(copyinstr(arg0)) == "portscanner_threads.py"
  && copyinstr(arg1) == "main"/
 {
     self->trace = 0;
